@@ -1,30 +1,24 @@
 <template>
   <b-container>
     <b-form
-      @submit="onSubmit"
-      @reset="onReset" v-if="show">
+      @submit.prevent="handleSubmit"
+      @reset.prevent="handleReset"
+    >
       <b-form-group
-        id="input-group-1"
         label="Email address:"
         label-for="input-1"
-        description="We'll never share your email with anyone else."
       >
         <b-form-input
-          id="input-1"
-          v-model="form.email"
+          v-model="email"
           type="email"
           placeholder="Enter email"
-          required
         ></b-form-input>
       </b-form-group>
-
-      <b-form-group
-        id="input-group-2"
-        label="Your Name:" label-for="input-2">
+      <b-form-group>
+        <label for="text-password">Password</label>
         <b-form-input
-          id="input-2"
-          v-model="form.name"
-          placeholder="Enter name"
+          v-model="password"
+          type="password"
           required
         ></b-form-input>
       </b-form-group>
@@ -39,29 +33,29 @@
 </template>
 
 <script>
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+
 export default {
   data() {
     return {
-      form: {
-        email: '',
-        name: '',
-        food: null,
-        checked: [],
-      },
-      foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-      show: true,
+      name: '',
+      email: '',
+      password: '',
     }
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
-      console.log('KKK')
+    handleSubmit() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(() => this.$router.replace({ name: 'protected' }))
+        .catch((error) => console.error(error))
     },
-    onReset(event) {
-      event.preventDefault()
-      // Reset our form values
-      this.form.email = ''
-      this.form.name = ''
+    handleReset() {
+      this.name = ''
+      this.email = ''
+      this.password = ''
     },
   },
 }
