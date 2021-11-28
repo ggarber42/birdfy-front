@@ -1,9 +1,17 @@
 <template>
-  <div id="app">
-    <router-link to="/protected">Protected</router-link>
+  <div id="app" class="mt-2">
+    <sidebar />
     <router-view/>
   </div>
 </template>
+
+<script>
+import Sidebar from './components/SideBar.vue'
+
+export default {
+  components: { Sidebar },
+}
+</script>
 
 <style>
 #app {
