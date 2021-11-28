@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <h1>Birdfy</h1>
-    <h3>aves do Morro do sso</h3>
+    <h3>aves do Morro do Osso</h3>
     <b-row align-h="center">
       <b-card
         border-variant="light"
