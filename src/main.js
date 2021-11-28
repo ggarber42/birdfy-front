@@ -14,7 +14,7 @@ Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 
 const firebaseConfig = {
-  apiKey: 'xxxxxx',
+  apiKey: '',
   authDomain: 'birdfy-auth-handler.firebaseapp.com',
   projectId: 'birdfy-auth-handler',
   storageBucket: 'birdfy-auth-handler.appspot.com',
@@ -24,15 +24,14 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-let app
-
 firebase.auth().onAuthStateChanged((user) => {
-  console.log('user', user)
-  if (!app) {
-    app = new Vue({
-      router,
-      store,
-      render: (h) => h(App),
-    }).$mount('#app')
-  }
+  store.dispatch('fetchUser', user)
+})
+
+firebase.auth().onAuthStateChanged(() => {
+  new Vue({
+    router,
+    store,
+    render: (h) => h(App),
+  }).$mount('#app')
 })
