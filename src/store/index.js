@@ -19,16 +19,21 @@ export default new Vuex.Store({
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value
     },
-    SET_USER(state, data) {
-      state.user.data = data
+    SET_USER(state, newData) {
+      const currentData = state.user.data
+      state.user.data = {
+        ...currentData,
+        ...newData,
+      }
     },
   },
   actions: {
-    fetchUser({ commit }, user) {
+    fetchFirebaseUser({ commit }, user) {
       commit('SET_LOGGED_IN', user !== null)
       if (user) {
         commit('SET_USER', {
           email: user.email,
+          firebaseUiid: user.uid,
         })
       } else {
         commit('SET_USER', null)

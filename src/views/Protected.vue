@@ -5,9 +5,8 @@
 <script>
 export default {
   name: 'Protected',
+  mounted() {
+    console.log(this.$store.getters.user.data.email)
+  },
 }
 </script>
-
-<style>
-
-</style>

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import firebase from 'firebase/compat/app'
 import App from './App.vue'
@@ -8,13 +9,13 @@ import store from './store'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+Vue.config.devtools = true
+
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
-Vue.config.productionTip = false
-
 const firebaseConfig = {
-  apiKey: '',
+  apiKey: 'AIzaSyC7Gpn2wZ3wNDmj1UI4xDBj9p8qwPfWHVo',
   authDomain: 'birdfy-auth-handler.firebaseapp.com',
   projectId: 'birdfy-auth-handler',
   storageBucket: 'birdfy-auth-handler.appspot.com',
@@ -25,7 +26,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 firebase.auth().onAuthStateChanged((user) => {
-  store.dispatch('fetchUser', user)
+  store.dispatch('fetchFirebaseUser', user)
+  console.log(user)
 })
 
 firebase.auth().onAuthStateChanged(() => {
