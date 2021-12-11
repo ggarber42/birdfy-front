@@ -22,7 +22,7 @@
         </b-row>
         <b-row>
           <b-button
-            @click="$router.push('signup')"
+            @click="$router.push('singup')"
             href="#"
             variant="outline-primary">
             Cadastro
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import teste from '../utils'
+import { teste } from '../utils'
 
 export default {
   name: 'Home',

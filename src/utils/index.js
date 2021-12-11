@@ -1,13 +1,17 @@
 import axios from 'axios'
 
-const url = 'http://localhost:8080/api/v1/birdfy'
+const URL = 'http://localhost:8080/api/v1/birdfy'
 
-export default function teste() {
+export function teste() {
   axios({
     method: 'post',
-    url: `${url}/ave`,
+    url: `${URL}/ave`,
     data: {
       nome: 'Tom',
     },
   })
+}
+
+export function routeRequiresAuth(to) {
+  return to.matched.some((record) => record.meta.requiresAuth)
 }

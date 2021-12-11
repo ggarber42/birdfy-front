@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import store from '../store'
-import Home from '../views/Home.vue'
-import Signup from '../views/Signup.vue'
-import Login from '../views/Login.vue'
-import Protected from '../views/Protected.vue'
-
-// eslint-disable-next-line import/order
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
+
+import store from '../store'
+
+import Dashboard from '../views/Dashboard.vue'
+import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import SingupApi from '../views/SingupApi.vue'
+import SingupFireBase from '../views/SingupFireBase.vue'
+
+import { routeRequiresAuth } from '../utils'
 
 Vue.use(VueRouter)
 
@@ -27,10 +30,16 @@ const routes = [
     component: Login,
   },
   {
-    path: '/signup',
-    name: 'Signup',
+    path: '/singup',
+    name: 'SingupFireBase',
     meta: { requiresAuth: false },
-    component: Signup,
+    component: SingupFireBase,
+  },
+  {
+    path: '/singup/complement',
+    name: 'SingupApi',
+    meta: { requiresAuth: true },
+    component: SingupApi,
   },
   {
     path: '/about',
@@ -53,10 +62,10 @@ const routes = [
     },
   },
   {
-    path: '/protected',
-    name: 'Protected',
+    path: '/dashboard',
+    name: 'Dashboard',
     meta: { requiresAuth: true },
-    component: Protected,
+    component: Dashboard,
   },
 ]
 
@@ -68,11 +77,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.user.loggedIn
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  const requiresAuth = routeRequiresAuth(to)
   if (requiresAuth && !isAuthenticated) {
     next('/login')
-  } else if (!requiresAuth && isAuthenticated) {
-    next('/protected')
   } else {
     next()
   }

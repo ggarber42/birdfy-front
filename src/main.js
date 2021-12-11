@@ -15,7 +15,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC7Gpn2wZ3wNDmj1UI4xDBj9p8qwPfWHVo',
+  apiKey: '',
   authDomain: 'birdfy-auth-handler.firebaseapp.com',
   projectId: 'birdfy-auth-handler',
   storageBucket: 'birdfy-auth-handler.appspot.com',
@@ -25,9 +25,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-firebase.auth().onAuthStateChanged((user) => {
-  store.dispatch('fetchFirebaseUser', user)
-  console.log(user)
+firebase.auth().onAuthStateChanged(async (user) => {
+  store.dispatch('updateUser', user)
 })
 
 firebase.auth().onAuthStateChanged(() => {

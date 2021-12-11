@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     user: {
       loggedIn: false,
-      data: null,
+      apiData: null,
+      firebaseData: null,
+      isNew: false,
     },
   },
   getters: {
@@ -19,25 +21,31 @@ export default new Vuex.Store({
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value
     },
-    SET_USER(state, newData) {
+    SET_USER_FIREBASE_DATA(state, newData) {
       const currentData = state.user.data
       state.user.data = {
         ...currentData,
         ...newData,
       }
     },
+    SET_IF_USER_IS_NEW(state, value) {
+      state.user.isNew = value
+    },
   },
   actions: {
-    fetchFirebaseUser({ commit }, user) {
+    updateUser({ commit }, user) {
       commit('SET_LOGGED_IN', user !== null)
       if (user) {
-        commit('SET_USER', {
+        commit('SET_USER_FIREBASE_DATA', {
           email: user.email,
           firebaseUiid: user.uid,
         })
       } else {
-        commit('SET_USER', null)
+        commit('SET_USER_FIREBASE_DATA', null)
       }
+    },
+    setIfUserIsNew({ commit }, value) {
+      commit('SET_IF_USER_IS_NEW', value)
     },
   },
   modules: {

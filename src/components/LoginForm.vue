@@ -49,7 +49,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.push('protected')
+          this.$router.push('dashboard')
         })
         .catch((error) => {
           console.error(error)

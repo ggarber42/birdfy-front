@@ -10,7 +10,7 @@ import SignupForm from '../components/SignupForm.vue'
 
 export default {
   components: { SignupForm },
-  name: 'Signup',
+  name: 'SingupFireBase',
 }
 </script>
 
