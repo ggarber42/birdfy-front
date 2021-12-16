@@ -38,7 +38,6 @@ import 'firebase/compat/auth'
 export default {
   data() {
     return {
-      name: '',
       email: '',
       password: '',
     }
@@ -49,7 +48,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.push('dashboard')
+          this.$router.replace({ name: 'Dashboard' })
         })
         .catch((error) => {
           console.error(error)

@@ -49,7 +49,10 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => this.$router.replace({ name: 'SingupApi' }))
+        .then(() => {
+          console.log('AQUI DEPOIS')
+          this.$router.replace({ name: 'SingupApi' })
+        })
         .catch((error) => console.error(error))
     },
     handleReset() {

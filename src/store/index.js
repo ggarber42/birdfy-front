@@ -7,45 +7,44 @@ export default new Vuex.Store({
   state: {
     user: {
       loggedIn: false,
-      apiData: null,
-      firebaseData: null,
-      isNew: false,
+      data: {},
     },
+    fetchingData: false,
   },
   getters: {
     user(state) {
       return state.user
+    },
+    fetchingData(state) {
+      return state.fetchingData
     },
   },
   mutations: {
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value
     },
-    SET_USER_FIREBASE_DATA(state, newData) {
+    UPDATE_USER(state, newData) {
       const currentData = state.user.data
       state.user.data = {
         ...currentData,
         ...newData,
       }
     },
-    SET_IF_USER_IS_NEW(state, value) {
-      state.user.isNew = value
+    UPDATE_FETCH_STATUS(state, value) {
+      state.fetchingData = value
     },
   },
   actions: {
-    updateUser({ commit }, user) {
-      commit('SET_LOGGED_IN', user !== null)
-      if (user) {
-        commit('SET_USER_FIREBASE_DATA', {
-          email: user.email,
-          firebaseUiid: user.uid,
-        })
-      } else {
-        commit('SET_USER_FIREBASE_DATA', null)
-      }
+    changeFetchingStatus({ commit }, value) {
+      commit('UPDATE_FETCH_STATUS', value)
     },
-    setIfUserIsNew({ commit }, value) {
-      commit('SET_IF_USER_IS_NEW', value)
+    updateUser({ commit }, data) {
+      commit('SET_LOGGED_IN', data.email !== null)
+      if (data) {
+        commit('UPDATE_USER', data)
+      } else {
+        commit('UPDATE_USER', null)
+      }
     },
   },
   modules: {

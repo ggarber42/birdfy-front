@@ -12,7 +12,7 @@ import Login from '../views/Login.vue'
 import SingupApi from '../views/SingupApi.vue'
 import SingupFireBase from '../views/SingupFireBase.vue'
 
-import { routeRequiresAuth } from '../utils'
+import { routeRequiresAuth, waitFetching } from '../utils'
 
 Vue.use(VueRouter)
 
@@ -75,10 +75,16 @@ const router = new VueRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = store.getters.user.loggedIn
+router.beforeEach(async (to, from, next) => {
+  const isFetching = store.getters.fetchingData
+  if (isFetching) {
+    await waitFetching()
+  }
   const requiresAuth = routeRequiresAuth(to)
-  if (requiresAuth && !isAuthenticated) {
+  const isAuthenticated = store.getters.user.loggedIn
+  if (to.name === 'Home' && isAuthenticated) {
+    next({ name: 'Dashboard' })
+  } else if (requiresAuth && !isAuthenticated) {
     next('/login')
   } else {
     next()

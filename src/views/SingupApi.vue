@@ -12,6 +12,7 @@
         >
           <b-form-input
             v-model="nome"
+            required
             type="text"
             placeholder="Digite o nome"
           ></b-form-input>
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'SignupApi',
@@ -38,7 +40,26 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$router.replace({ name: 'Dashboard' })
+      const { email } = this.$store.getters.user.data
+      const url = 'http://localhost:8080/api/v1/birdfy/usuario'
+      axios.post(url, {
+        nome: this.nome,
+        email,
+      })
+        .then((response) => {
+          console.log(response)
+          axios
+            .get(`${url}/${email}`)
+            .then((res) => {
+              console.log(res)
+              const apiData = res.data
+              this.$store.dispatch('updateUser', apiData)
+              this.$router.replace({ name: 'Dashboard' })
+            })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   },
 }

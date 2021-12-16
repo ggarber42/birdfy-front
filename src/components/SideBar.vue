@@ -4,7 +4,7 @@
     <router-link to="/login" v-if="!isLoggedIn">Login</router-link>
     <router-link to="/singup" v-if="!isLoggedIn">Signup</router-link>
     <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
-    <router-link to="/protected" v-if="isLoggedIn">Protected</router-link>
+    <router-link to="/dashboard" v-if="isLoggedIn">Dashboard</router-link>
     <router-link to="/about">About</router-link>
   </slide>
 </template>
