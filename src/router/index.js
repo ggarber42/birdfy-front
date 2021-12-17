@@ -11,6 +11,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import SingupApi from '../views/SingupApi.vue'
 import SingupFireBase from '../views/SingupFireBase.vue'
+import BirdRegister from '../views/BirdRegister.vue'
 
 import { routeRequiresAuth, waitFetching } from '../utils'
 
@@ -66,6 +67,12 @@ const routes = [
     name: 'Dashboard',
     meta: { requiresAuth: true },
     component: Dashboard,
+  },
+  {
+    path: '/birdregister',
+    name: 'BirdRegister',
+    meta: { requiresAuth: true },
+    component: BirdRegister,
   },
 ]
 
