@@ -1,5 +1,5 @@
 <template>
-  <dir>
+  <div>
     <h1>Dashboard</h1>
     <p>Olá {{nome}} </p>
     <router-link to="/birdregister">
@@ -8,11 +8,20 @@
       </b-button>
     </router-link>
     <b-table
-      striped
       hover
-      :fileds="fields"
-      :items="birds"></b-table>
-  </dir>
+      head-variant="dark"
+      :items="birds"
+      :fields="fields"
+      striped responsive="sm">
+      <template #cell(actions)="row">
+        <b-button
+          size="sm" @click="row.toggleDetails"
+          class="mr-2">
+          Clique
+        </b-button>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -23,11 +32,19 @@ export default {
   data() {
     return {
       nome: '',
-      fields: ['id', 'nome'],
+      fields: [
+        {
+          key: 'id',
+          label: 'ID',
+          sortable: true,
+        },
+        { key: 'nome' },
+        { key: 'actions' },
+      ],
       birds: [],
     }
   },
-  mounted() {
+  beforeMount() {
     this.nome = this.$store.getters.user.data.nome
     axios
       .get('http://localhost:8080/api/v1/birdfy/ave')

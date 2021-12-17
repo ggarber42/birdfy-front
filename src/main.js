@@ -16,7 +16,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 const firebaseConfig = {
-  apiKey: '',
+  apiKey: 'AIzaSyC7Gpn2wZ3wNDmj1UI4xDBj9p8qwPfWHVo',
   authDomain: 'birdfy-auth-handler.firebaseapp.com',
   projectId: 'birdfy-auth-handler',
   storageBucket: 'birdfy-auth-handler.appspot.com',
