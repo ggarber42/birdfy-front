@@ -15,9 +15,9 @@
       striped responsive="sm">
       <template #cell(actions)="row">
         <b-button
-          size="sm" @click="row.toggleDetails"
+          size="sm" @click="expandAdditionalInfo(row)"
           class="mr-2">
-          Clique
+          Editar
         </b-button>
       </template>
     </b-table>
@@ -44,6 +44,13 @@ export default {
       birds: [],
     }
   },
+  methods: {
+    expandAdditionalInfo(row) {
+      const { item } = row
+      console.log(item.id, item.nome)
+      this.$router.push({ name: 'BirdEdit', params: { id: item.id } })
+    },
+  },
   beforeMount() {
     this.nome = this.$store.getters.user.data.nome
     axios
@@ -63,5 +70,7 @@ export default {
 </script>
 
 <style>
-
+tr{
+  cursor: pointer;
+}
 </style>
