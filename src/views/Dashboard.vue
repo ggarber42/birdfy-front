@@ -47,7 +47,6 @@ export default {
   methods: {
     expandAdditionalInfo(row) {
       const { item } = row
-      console.log(item.id, item.nome)
       this.$router.push({ name: 'BirdEdit', params: { id: item.id } })
     },
   },
