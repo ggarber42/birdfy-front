@@ -1,36 +1,45 @@
 <template>
   <div>
-    <h1>Cadastro</h1>
-    <b-container>
-      <b-form
-        @submit.prevent="handleSubmit"
-        @reset.prevent="handleReset"
+    <cover />
+    <b-container class="main">
+      <b-card
+        bg-variant="dark"
+        title="Birdfy"
+        sub-title="Aves do Morro do Osso"
+        tag="article"
+        style="max-width: 25rem"
+        class="mb-2"
       >
-        <b-form-group
-          label="Email address:"
-          label-for="input-1"
-        >
+        <b-row class="mt-3 mb-3">
           <b-form-input
-            v-model="email"
             type="email"
-            placeholder="Enter email"
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group>
-          <label for="text-password">Password</label>
+            v-model="email"
+            placeholder="E-mail" />
+        </b-row>
+        <b-row class="mt-3 mb-3">
           <b-form-input
-            v-model="password"
             type="password"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-button
-          type="submit"
-          variant="primary">Submit</b-button>
-        <b-button
-          type="reset"
-          variant="danger">Reset</b-button>
-      </b-form>
+            v-model="password"
+            placeholder="Senha" />
+        </b-row>
+        <b-row class="mt-3 mb-3">
+          <b-button
+            @click="handleSubmit"
+            href="#"
+            variant="secondary">
+            Cadastrar
+          </b-button>
+        </b-row>
+        <b-row class="mt-5">
+          <b-button
+            size="sm"
+            @click="$router.push('/')"
+            href="#"
+            variant="outline-light">
+            voltar
+          </b-button>
+        </b-row>
+      </b-card>
     </b-container>
   </div>
 </template>
@@ -39,8 +48,11 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
+import Cover from '../components/Cover.vue'
+
 export default {
   name: 'SingupFireBase',
+  components: { Cover },
   data() {
     return {
       name: '',
@@ -59,14 +71,29 @@ export default {
         })
         .catch((error) => console.error(error))
     },
-    handleReset() {
-      this.name = ''
-      this.email = ''
-      this.password = ''
-    },
   },
 }
 </script>
 
 <style>
+.bm-burger-button{
+  display: none;
+}
+.main{
+  margin: 10vh auto 0;
+}
+.card{
+  opacity: .85;
+}
+.card-body{
+  color: #fff;
+  font-weight: 900;
+}
+.card-subtitle{
+  color: #fff;
+}
+
+article.card{
+  margin: 0 auto;
+}
 </style>

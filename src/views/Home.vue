@@ -1,31 +1,42 @@
 <template>
-  <b-container>
-    <h1>Birdfy</h1>
-    <h3>aves do Morro do Osso</h3>
+  <b-container class="main">
+    <cover />
     <b-row align-h="center">
       <b-card
-        border-variant="light"
-        :img-src="imageUrl"
-        img-alt="Martim pescador"
-        img-top
+        bg-variant="dark"
+        title="Birdfy"
+        sub-title="Aves do Morro do Osso"
         tag="article"
         style="max-width: 25rem"
         class="mb-2"
       >
         <b-row class="mt-3 mb-3">
+          <b-form-input
+            type="email"
+            v-model="email"
+            placeholder="E-mail" />
+        </b-row>
+        <b-row class="mt-3 mb-3">
+          <b-form-input
+            type="password"
+            v-model="password"
+            placeholder="Senha" />
+        </b-row>
+        <b-row class="mt-3 mb-3">
           <b-button
-            @click="$router.push('login')"
+            @click="handleSubmit"
             href="#"
-            variant="primary">
-            Login
+            variant="secondary">
+            Entrar
           </b-button>
         </b-row>
-        <b-row>
+        <b-row class="mt-5">
           <b-button
+            size="sm"
             @click="$router.push('singup')"
             href="#"
-            variant="outline-primary">
-            Cadastro
+            variant="outline-light">
+            Não tenho cadastro
           </b-button>
         </b-row>
       </b-card>
@@ -34,13 +45,48 @@
 </template>
 
 <script>
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import Cover from '../components/Cover.vue'
+
 export default {
   name: 'Home',
+  components: { Cover },
   data() {
     return {
-      imageUrl: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=869&q=80',
+      email: '',
+      password: '',
     }
+  },
+  methods: {
+    handleSubmit() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.replace({ name: 'Dashboard' })
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
   },
 
 }
 </script>
+
+<style scoped>
+.main{
+  margin: 10vh auto 0;
+}
+.card{
+  opacity: .85;
+}
+.card-body{
+  color: #fff;
+  font-weight: 900;
+}
+.card-subtitle{
+  color: #fff;
+}
+</style>

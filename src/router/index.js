@@ -8,7 +8,6 @@ import store from '../store'
 
 import Dashboard from '../views/Dashboard.vue'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
 import SingupApi from '../views/SingupApi.vue'
 import SingupFireBase from '../views/SingupFireBase.vue'
 import BirdRegister from '../views/BirdRegister.vue'
@@ -24,12 +23,6 @@ const routes = [
     name: 'Home',
     meta: { requiresAuth: false },
     component: Home,
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    meta: { requiresAuth: false },
-    component: Login,
   },
   {
     path: '/singup',

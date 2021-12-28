@@ -1,11 +1,9 @@
 <template>
   <div>
-    <h3>Olá {{nome}} </h3>
-    <router-link to="/birdregister">
-      <b-button variant="primary">
-        Cadastrar Ave
-      </b-button>
-    </router-link>
+    <h3>Olá, {{nome}} </h3>
+    <b-container>
+      <b-form-input placeholder="Pesquise uma ave..."></b-form-input>
+    </b-container>
     <h4 class="d-flex p-2">Minhas aves</h4>
     <b-table
       hover
@@ -28,6 +26,11 @@
         </b-button>
       </template>
     </b-table>
+    <router-link to="/birdregister">
+      <b-button variant="primary">
+        Cadastrar Ave
+      </b-button>
+    </router-link>
   </div>
 </template>
 

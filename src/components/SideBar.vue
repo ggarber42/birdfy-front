@@ -1,7 +1,6 @@
 <template>
   <slide width="250" noOverlay>
     <router-link to="/" v-if="!isLoggedIn">Home</router-link>
-    <router-link to="/login" v-if="!isLoggedIn">Login</router-link>
     <router-link to="/singup" v-if="!isLoggedIn">Signup</router-link>
     <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
     <router-link to="/dashboard" v-if="isLoggedIn">Dashboard</router-link>
