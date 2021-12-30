@@ -76,9 +76,6 @@ export default {
 </script>
 
 <style>
-.bm-burger-button{
-  display: none;
-}
 .main{
   margin: 10vh auto 0;
 }

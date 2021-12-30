@@ -1,5 +1,9 @@
 <template>
-  <slide width="250" noOverlay>
+  <slide
+    width="250"
+    noOverlay
+    v-if="isVisible"
+  >
     <router-link to="/" v-if="!isLoggedIn">Home</router-link>
     <router-link to="/singup" v-if="!isLoggedIn">Signup</router-link>
     <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
@@ -16,8 +20,34 @@ export default {
   components: {
     Slide,
   },
+  data() {
+    return {
+      isVisible: true,
+      currentRoute: this.$route,
+    }
+  },
+  methods: {
+    isAuthPage() {
+      const routeName = this.$route.name
+      return routeName === 'Home' || routeName === 'SingupFireBase' || routeName === 'SingupApi'
+    },
+  },
   computed: {
     isLoggedIn() { return this.$store.getters.user.loggedIn },
+  },
+  watch: {
+    $route() {
+      if (this.isAuthPage()) {
+        this.isVisible = false
+      } else {
+        this.isVisible = true
+      }
+    },
+  },
+  mounted() {
+    if (this.isAuthPage()) {
+      this.isVisible = false
+    }
   },
 }
 </script>

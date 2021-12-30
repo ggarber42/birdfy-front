@@ -8,7 +8,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cover{
   background-image: url('../assets/img/background.jpg');
   background-attachment: scroll;
@@ -35,8 +35,5 @@ export default {
    {
     background-position-y: inherit;
    }
-}
-.bm-burger-button{
-  display: none;
 }
 </style>
