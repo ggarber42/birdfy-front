@@ -1,11 +1,10 @@
 <template>
   <div>
-    <cover />
     <b-container class="main">
+      <cover />
       <b-card
         bg-variant="dark"
-        title="Birdfy"
-        sub-title="Aves do Morro do Osso"
+        title="Cadastro"
         tag="article"
         style="max-width: 25rem"
         class="mb-2"
@@ -66,7 +65,6 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          console.log('AQUI DEPOIS')
           this.$router.replace({ name: 'SingupApi' })
         })
         .catch((error) => console.error(error))
