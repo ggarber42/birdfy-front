@@ -14,12 +14,14 @@
             type="email"
             v-model="email"
             placeholder="E-mail" />
+          <span v-if="showErrorEmail">{{errorMsg.email}}</span>
         </b-row>
         <b-row class="mt-3 mb-3">
           <b-form-input
             type="password"
             v-model="password"
             placeholder="Senha" />
+          <span v-if="showErrorPassword">{{errorMsg.password}}</span>
         </b-row>
         <b-row class="mt-3 mb-3">
           <b-button
@@ -27,6 +29,7 @@
             href="#"
             variant="secondary">
             Cadastrar
+            <b-spinner small v-if="showSpinner"></b-spinner>
           </b-button>
         </b-row>
         <b-row class="mt-5">
@@ -54,13 +57,23 @@ export default {
   components: { Cover },
   data() {
     return {
-      name: '',
       email: '',
       password: '',
+      errorMsg: [],
+      showErrorEmail: false,
+      showErrorPassword: false,
+      showSpinner: false,
+      modalShow: false,
     }
   },
   methods: {
     handleSubmit() {
+      this.validateEmail(this.email)
+      this.validatePassword(this.password)
+      if (this.errorMsg.password.length || this.errorMsg.email.length) {
+        return
+      }
+      this.showSpinner = true
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -68,6 +81,25 @@ export default {
           this.$router.replace({ name: 'SingupApi' })
         })
         .catch((error) => console.error(error))
+    },
+    validateEmail(value) {
+      if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        this.errorMsg.email = ''
+        this.showErrorEmail = false
+      } else {
+        this.showErrorEmail = true
+        this.errorMsg.email = 'Email inválido'
+      }
+    },
+    validatePassword(value) {
+      const difference = 6 - value.length
+      if (value.length < 6) {
+        this.showErrorPassword = true
+        this.errorMsg.password = `A senha precisa de 6 caracteres! Precisa de mais ${difference}`
+      } else {
+        this.showErrorPassword = false
+        this.errorMsg.password = ''
+      }
     },
   },
 }
@@ -91,4 +123,5 @@ export default {
 article.card{
   margin: 0 auto;
 }
+
 </style>

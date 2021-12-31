@@ -44,7 +44,7 @@
         </b-row>
       </b-card>
     </b-row>
-    <b-modal content-class="your-class"  v-model="modalShow">
+    <b-modal content-class="modal-custom"  v-model="modalShow">
       Senha ou email inválido
     </b-modal>
   </b-container>
@@ -105,7 +105,7 @@ export default {
       const difference = 6 - value.length
       if (value.length < 6) {
         this.showErrorPassword = true
-        this.errorMsg.password = `A senha precisa de 6 caracteres! Falta ${difference}`
+        this.errorMsg.password = `A senha precisa de 6 caracteres! Precisa de mais ${difference}`
       } else {
         this.showErrorPassword = false
         this.errorMsg.password = ''
@@ -131,6 +131,7 @@ export default {
 }
 input + span{
   color: red;
+  font-size: .75rem;
 }
 .your-class .modal-footer{
   display: none;
@@ -141,7 +142,7 @@ input + span{
   font-size: 1.25rem;
 }
 
-.your-class .modal-body{
+.modal-custom .modal-body{
   color: red;
   text-align: center;
 }
