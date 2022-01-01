@@ -82,7 +82,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.replace({ name: 'Dashboard' })
+          this.$router.replace({ name: 'Main' })
         })
         .catch((data) => {
           this.requestError = data
@@ -133,10 +133,10 @@ input + span{
   color: red;
   font-size: .75rem;
 }
-.your-class .modal-footer{
+.modal-custom .modal-footer{
   display: none;
 }
-.your-class button.close{
+.modal-custom button.close{
   background-color: #fff;
   border: none;
   font-size: 1.25rem;

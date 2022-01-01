@@ -13,6 +13,7 @@ import SingupFireBase from '../views/SingupFireBase.vue'
 import BirdRegister from '../views/BirdRegister.vue'
 import BirdEdit from '../views/BirdEdit.vue'
 import Main from '../views/Main.vue'
+import Search from '../views/Search.vue'
 
 import { routeRequiresAuth, waitFetching } from '../utils'
 
@@ -42,11 +43,6 @@ const routes = [
     name: 'Main',
     meta: { requiresAuth: true },
     component: Main,
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue'),
   },
   {
     path: '/logout',
@@ -81,6 +77,12 @@ const routes = [
     meta: { requiresAuth: true },
     component: BirdEdit,
   },
+  {
+    path: '/search',
+    name: 'Search',
+    meta: { requiresAuth: true },
+    component: Search,
+  },
 ]
 
 const router = new VueRouter({
@@ -97,7 +99,7 @@ router.beforeEach(async (to, from, next) => {
   const requiresAuth = routeRequiresAuth(to)
   const isAuthenticated = store.getters.user.loggedIn
   if (to.name === 'Home' && isAuthenticated) {
-    next({ name: 'Dashboard' })
+    next({ name: 'Main' })
   } else if (requiresAuth && !isAuthenticated) {
     next('/login')
   } else {

@@ -42,6 +42,9 @@
           </b-button>
         </b-row>
       </b-card>
+      <b-modal content-class="modal-custom"  v-model="modalShow">
+        {{ requestError }}
+      </b-modal>
     </b-container>
   </div>
 </template>
@@ -60,6 +63,7 @@ export default {
       email: '',
       password: '',
       errorMsg: [],
+      requestError: '',
       showErrorEmail: false,
       showErrorPassword: false,
       showSpinner: false,
@@ -80,7 +84,13 @@ export default {
         .then(() => {
           this.$router.replace({ name: 'SingupApi' })
         })
-        .catch((error) => console.error(error))
+        .catch((error) => {
+          this.requestError = error
+          this.modalShow = true
+        })
+        .finally(() => {
+          this.showSpinner = false
+        })
     },
     validateEmail(value) {
       if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
@@ -123,5 +133,17 @@ export default {
 article.card{
   margin: 0 auto;
 }
+.modal-custom .modal-footer{
+  display: none;
+}
+.modal-custom button.close{
+  background-color: #fff;
+  border: none;
+  font-size: 1.25rem;
+}
 
+.modal-custom .modal-body{
+  color: red;
+  text-align: center;
+}
 </style>

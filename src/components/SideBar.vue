@@ -7,8 +7,7 @@
     <router-link to="/" v-if="!isLoggedIn">Home</router-link>
     <router-link to="/singup" v-if="!isLoggedIn">Signup</router-link>
     <router-link to="/logout" v-if="isLoggedIn">Logout</router-link>
-    <router-link to="/dashboard" v-if="isLoggedIn">Dashboard</router-link>
-    <router-link to="/about">About</router-link>
+    <router-link to="/main" v-if="isLoggedIn">Main</router-link>
   </slide>
 </template>
 
@@ -54,13 +53,20 @@ export default {
 
 <style>
 .bm-menu{
-  background-color: #fff;
-  border-right: 1px solid #dedede;
+  background-color: #2a2d31;
+  opacity: .9;
 }
 .bm-burger-button {
     height: 20px;
     width: 25px;
     top: inherit;
     left: 5vw;
+}
+.bm-item-list > a {
+  color: #fff;
+}
+.bm-burger-bars {
+    background-color: #ffffff;
+    width: 40px;
 }
 </style>
